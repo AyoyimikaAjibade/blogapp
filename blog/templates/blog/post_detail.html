@@ -1,0 +1,53 @@
+{% extends 'blog/index.html' %}
+{% load markdownify %}
+
+{% block title %}Post Detail{% endblock %}
+
+{% block content %}
+
+<div class="row">
+        <div class="card mb-3 border-light text-white bg-dark" style="width: 100%; margin-top: 20px;">
+            <div class="card-header"><strong>{{post.author}}</strong>
+                <a href="{% url 'post_edit' id=post.id %}" class="btn btn-outline-warning mr-2">Edit</a>
+                <a href="{% url 'post_delete' id=post.id %}" class="btn btn-outline-danger mr-2">Delete</a>
+                <a href="{% url 'post_edit' id=post.id %}" style="float: right;" class="btn btn-outline-primary">Edit</a>
+                <a href="{% url 'post_comment' id=post.id %}" style="float: right;" class="btn btn-outline-light mr-2">Add Comment</a>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{post.title}}</h5>
+                <p class="card-text">{{post.text|markdown|safe}}</p>
+                {% if post.published_date %}
+                <p class="card-text">
+                    <small class="text-muted">Published: {{post.published_date}}</small>
+                </p>
+                {% else %}
+                <a href="{% url 'post_publish' id=post.id %}" style="float:right;">Publish</a>
+                {% endif %}
+            </div>
+        </div>
+
+    {% for comment in post.comments.all %}
+    {% if user.is_authenticated or comment.approved %}
+    <div class="card mb-3 border-light text-white bg-dark" style="width: 100%; margin-top: 20px;">
+            <div class="card-header">Comments
+                {% if not comment.approved and user.is_superuser %}
+                <a href="{% url 'comment_delete' comment_id=comment.id %}" class="btn btn-outline-danger mr-2">Delete</a>
+                <a href="{% url 'comment_approve' comment_id=comment.id %}" style="float: right;" class="btn btn-outline-success">Approve</a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{comment.author}}</h5>
+                <p class="card-text">{{comment.text|markdown|safe}}</p>
+                <p class="card-text">
+                    <small class="text-muted">Created: {{comment.created_date}}</small>
+                </p>
+            </div>
+        </div>
+    {% endif %}
+    {% empty %}
+    <p style="color:white;">No comments yet...</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

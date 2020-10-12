@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+body, html {
+    background: black;
+    margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p li{
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+.list-styling {
+    margin-top: 20px;
+}
+
+#design-logo{
+    font-family: 'Bangers', cursive;
+    font-size: 35px;
+}

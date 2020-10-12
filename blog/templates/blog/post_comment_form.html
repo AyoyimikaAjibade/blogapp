@@ -1,0 +1,25 @@
+{% extends 'blog/index.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Post Comment{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="card mb-3 border-light text-white bg-dark" style="width: 100%; margin-top: 20px;">
+        <div class="card-header"><h4>New Comment</h4></div>
+        <div class="card-body">
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{form|crispy}}
+
+                <p class="card-text"></p>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-outline-success btn-lg btn-block">Post Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

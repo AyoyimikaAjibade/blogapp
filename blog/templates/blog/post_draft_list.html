@@ -1,0 +1,28 @@
+{% extends 'blog/index.html' %}
+
+{% block content %}
+
+<div class="row mt-5">
+    {% for post in posts %}
+    <div class="col-sm-4" style=" margin-bottom:40px; ">
+        <div class="card h-100 border-light text-white bg-dark">
+            <div class="card-header">{{post.author}}
+                <a href="{% url 'post_edit' id=post.id %}" style="float: right;" class="btn btn-outline-warning mr-2">Edit</a>
+                <a href="{% url 'post_delete' id=post.id %}" style="float: right;" class="btn btn-outline-danger mr-2">Delete</a>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title"><a href="{% url 'post_detail' id=post.id %}">{{post.title}}</a></h4>
+                <p class="card-text">{{post.text|linebreaksbr|truncatechars:40}}</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Created: {{post.created_date|date:"d F, Y"}}</small>
+                <a href="{% url 'post_publish' id=post.id %}" style="float:right;" class="btn btn-outline-light">Publish</a>
+            </div>
+        </div>
+    </div>
+
+    {% empty %}
+    <p style="color:white;">No Drafts yet...</p>
+    {% endfor %}
+</div>
+{% endblock %}

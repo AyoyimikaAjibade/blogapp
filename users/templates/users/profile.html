@@ -1,0 +1,49 @@
+{% extends 'blog/index.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Profile Form{% endblock %}
+
+{% block content %}
+<style>
+	.profile-pic{
+		max-width: 200px;
+		max-height: 200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+</style>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card mb-3 border-light text-white bg-dark" style="width: 100%; margin-top: 20px;">
+            <div class="card-header">
+                <a class="btn btn-outline-warning" href="#"> &#8592; Back to Profile</a>
+            </div>
+            <div class="card-body">
+                <h3 style="text-align: center">Account Settings</h3>
+                <hr>
+                <img class="profile-pic" src="{{request.user.profile.profile_pic.url}}">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-9">
+        <div class="card mb-3 border-light text-white bg-dark" style="width: 100%; margin-top: 20px;">
+            <div class="card-header"><h4>Profile Form</h4></div>
+            <div class="card-body">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form|crispy}}
+
+                    <p class="card-text"></p>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Update Info</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
