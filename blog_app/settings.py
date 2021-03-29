@@ -69,11 +69,11 @@ WSGI_APPLICATION = 'blog_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blogapp',
-        'USER': 'root',
+        'NAME': str(os.getenv('DB_NAME')),
+        'USER': str(os.getenv('DB_USER')),
         'PASSWORD': str(os.getenv('DB_PASSWORD')),
-        'PORT': 3306,
-        'HOST': '127.0.0.1',
+        'PORT': str(os.getenv('DB_PORT')),
+        'HOST': str(os.getenv('DB_HOST')),
 
     }
 }
@@ -121,8 +121,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'users/static/users/images')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
+EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
+EMAIL_USE_TLS = str(os.getenv('EMAIL_USE_TLS'))
 EMAIL_HOST_USER = str(os.getenv('EMAIL_ADDRESS'))
 EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_PASSWORD'))
